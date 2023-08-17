@@ -17,7 +17,7 @@
         <Label Content="Цифровая подпись" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0"/>
         <TextBox Grid.Column="1"
                  Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"
-                 VerticalAlignment="Top" Margin="0,4,10,0"/>
+                 VerticalAlignment="Top" Margin="0,5,10,0"/>
         <TextBox Grid.Column="1"
                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                  VerticalAlignment="Top" Margin="0,34,10,0"/>

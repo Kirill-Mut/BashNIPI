@@ -21,7 +21,7 @@
         <TextBox Grid.Column="1"
                  Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"
                  VerticalAlignment="Top"
-                 Margin="0,4,10,0"/>
+                 Margin="0,5,10,0"/>
         <TextBox Grid.Column="1"
                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                  VerticalAlignment="Top"
