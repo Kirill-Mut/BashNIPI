@@ -7,8 +7,8 @@ namespace AppBashNIPIMVVM.Model
     {
         private int id;
         private string name;
-        private string? body;
-        public abstract string ClassName { get;}
+        private string body;
+        public abstract string ClassName { get; }
 
         public int Id
         {

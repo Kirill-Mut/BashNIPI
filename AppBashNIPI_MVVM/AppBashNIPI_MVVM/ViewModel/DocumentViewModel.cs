@@ -54,6 +54,8 @@ namespace AppBashNIPIMVVM.ViewModel
                 }
             }
         }
+        public string ClassName => document.ClassName;
+            
         public string Signature
         {
             get => document.Signature == Guid.Empty ? "" : document.Signature.ToString();
@@ -71,14 +73,10 @@ namespace AppBashNIPIMVVM.ViewModel
         public DocumentViewModel(Document documents)
         {
             document = documents;
-            CanEdited = (Signature == "");
+            CanEdited = Signature == "";
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
+        private void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
         private RelayCommand signCommand;
         public RelayCommand SignCommand

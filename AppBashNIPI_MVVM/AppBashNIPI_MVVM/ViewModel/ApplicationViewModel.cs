@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using AppBashNIPI_MVVM.Model;
 using AppBashNIPIMVVM.Model;
 
@@ -10,87 +11,56 @@ namespace AppBashNIPIMVVM.ViewModel
     public class ApplicationViewModel : INotifyPropertyChanged
     {
 
-        private MainItem selectedMainItem;
-        public ObservableCollection<MainItem> MainItems { get; private set; }
-        public MainItem SelectedMainItem
+        private INotifyPropertyChanged selectedMainItem;
+        public ObservableCollection<INotifyPropertyChanged> Views { get; private set; }
+        public INotifyPropertyChanged SelectedView
         {
             get => selectedMainItem;
             set
             {
-                selectedMainItem = value;
-                OnPropertyChanged("SelectedMainItem");
-                OpenSelectedMainItem();
+                if (value == null) return;
+                selectedMainItem =  value;
+                OnPropertyChanged("SelectedView");
+                OpenSelectedView();
             }
         }
 
         public ApplicationViewModel()
         {
-            MainItems = new ObservableCollection<MainItem>
+            Views = new ObservableCollection<INotifyPropertyChanged>
             {
-                new Document{ Id= 2, Name= "Тест.doc", Body = "Тест"},
-                new Mission{ Id= 1, Name= "Тест", Body = "Тест", Status = EnumStatus.InProgress}
+                new DocumentViewModel(new Document{ Id= 2, Name= "Тест.doc", Body = "Тест"}),
+                 new MissionViewModel(new Mission{ Id= 1, Name= "Тест", Body = "Тест", Status = EnumStatus.InProgress})
             };
         }
-        private RelayCommand createMainItemCommand;
-        public RelayCommand CreateMainItemCommand
-        {
-            get
-            {
-                return createMainItemCommand ??
-                       (createMainItemCommand = new RelayCommand(obj =>
-                       {
-                           string className = obj.ToString();
-                           IMainItemFactory factory;
-                           switch (className)
-                           {
-                               case "Document":
-                                   factory = new DocumentFactory();
-                                   break;
-                               case "Mission":
-                                   factory = new MissionFactory();
-                                   break;
-                               default:
-                                   throw new Exception(
-                                       $"Attempt to create a factory for a non-existent class: {className}");
-                           }
 
-                           MainItem mainItem = factory.CreateMainItem("Новая запись");
-                           mainItem.Id = MainItems.Count + 1;
-                           MainItems.Insert(0, mainItem);
-                           SelectedMainItem = mainItem;
-                       }));
-            }
-        }
-        private RelayCommand openMainItemCommand;
-        public RelayCommand OpenMainItemCommand
+        private RelayCommand _createDocumentView;
+        public RelayCommand CreateDocumentViewCommand => _createDocumentView ??= new(obj  =>
         {
-            get
-            {
-                return openMainItemCommand ??
-                       (openMainItemCommand = new RelayCommand(obj =>
-                       {
-                           SelectedMainItem = (MainItem)obj;
-                       }));
-            }
-        }
-        private void OpenSelectedMainItem()
-        {
-            string className = SelectedMainItem.ClassName;
-            ViewFactory viewFactory;
-            switch (className)
-            {
-                case "Документ":
-                    viewFactory = new DocumentViewFactory();
-                    break;
-                case "Задача":
-                    viewFactory = new MissionViewFactory();
-                    break;
-                default:
-                    throw new Exception("{className}");
-            }
+            var view = new DocumentViewModel (new Document { Name = "Новая запись" });
+            view.Id = Views.Count + 1;
+            Views.Insert(0, view);
+            SelectedView = view;
 
-            viewFactory.CreateView(SelectedMainItem);
+        });
+        private RelayCommand _createMissionView;
+        public RelayCommand CreateMissionViewCommand => _createMissionView ??= new(obj =>
+        {
+            var view = new MissionViewModel(new Mission { Name = "Новая запись" });
+            view.Id = Views.Count + 1;
+            Views.Insert(0, view);
+            SelectedView = view;
+
+        });
+        private RelayCommandOfT<INotifyPropertyChanged> openViewCommand;
+        public RelayCommandOfT<INotifyPropertyChanged> OpenViewCommand => openViewCommand ??= new (obj => SelectedView = obj);
+
+        private void OpenSelectedView()
+        {
+            var view = new ViewFactory().GetView(selectedMainItem);
+            view.Show();
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string prop = "")
         {

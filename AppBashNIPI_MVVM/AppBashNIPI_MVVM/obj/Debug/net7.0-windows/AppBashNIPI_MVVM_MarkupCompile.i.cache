@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Кирилл\Documents\GitHub\BashNIPI\AppBashNIPI_MVVM\AppBashNIPI_MVVM\obj\Debug\net7.0-windows\
+C:\Users\Кирилл\Desktop\BashNIPI-main\AppBashNIPI_MVVM\AppBashNIPI_MVVM\obj\Debug\net7.0-windows\
 AppBashNIPI_MVVM
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-C:\Users\Кирилл\Documents\GitHub\BashNIPI\AppBashNIPI_MVVM\AppBashNIPI_MVVM\App.xaml
+C:\Users\Кирилл\Desktop\BashNIPI-main\AppBashNIPI_MVVM\AppBashNIPI_MVVM\App.xaml
 3-166494002
 
-181067720857
+181668980179
 198947991364
 View\DocumentView.xaml;View\MainWindow.xaml;View\MissionView.xaml;
 
-False
+True
 

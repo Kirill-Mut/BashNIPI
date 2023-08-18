@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using AppBashNIPI_MVVM.Model;
 using AppBashNIPIMVVM.Model;
@@ -6,7 +7,7 @@ using AppBashNIPIMVVM.Model;
 
 namespace AppBashNIPIMVVM.ViewModel
 {
-    public class MissionViewModel
+    public class MissionViewModel : INotifyPropertyChanged
     {
         private Mission mission;
 
@@ -39,7 +40,7 @@ namespace AppBashNIPIMVVM.ViewModel
                 OnPropertyChanged("Body");
             }
         }
-
+        public string ClassName => mission.ClassName;
         public EnumStatus Status
         {
             get => mission.Status;

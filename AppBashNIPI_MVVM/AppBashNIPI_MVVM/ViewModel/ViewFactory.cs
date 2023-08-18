@@ -1,36 +1,28 @@
 ﻿using AppBashNIPIMVVM.Model;
 using AppBashNIPIMVVM.View;
+using System;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace AppBashNIPIMVVM.ViewModel
 {
-
-    public interface ViewFactory
+    public class ViewFactory
     {
-        public void CreateView(MainItem MainItem);
-    }
-
-    public class MissionViewFactory : ViewFactory
-    {
-        public void CreateView(MainItem MainItem)
+        public Window GetView(INotifyPropertyChanged view)
         {
-
-            var missionView = new MissionView
+            if (view is DocumentViewModel doc)
             {
-                DataContext = new MissionViewModel((Mission)MainItem)
-            };
-            missionView.Show();
-        }
-    }
-
-    public class DocumentViewFactory : ViewFactory
-    {
-        public void CreateView(MainItem MainItem)
-        {
-            var documentView = new DocumentView
+                return new DocumentView { DataContext = doc };
+            }
+            else if (view is MissionViewModel mis)
             {
-                DataContext = new DocumentViewModel((Document)MainItem)
-            };
-            documentView.Show();
+                return new MissionView { DataContext = mis };
+            }
+            else
+            {
+                throw new NotSupportedException($"Не поддерживаемый тип объекта: {view.GetType().Name}.");
+            }
         }
     }
 }

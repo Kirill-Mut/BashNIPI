@@ -18,22 +18,22 @@
         </Grid.ColumnDefinitions>
 
         <Button Content="Добавить документ"
-                Command="{Binding CreateMainItemCommand}"
+                Command="{Binding CreateDocumentViewCommand}"
                 CommandParameter="Document" 
                 VerticalAlignment="Top"
                 HorizontalAlignment="Stretch"/>
         <Button Grid.Column="1" Content="Добавить задачу"
-                Command="{Binding CreateMainItemCommand}"
+                Command="{Binding CreateMissionViewCommand}"
                 CommandParameter="Mission" 
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"/>
         <ListView Name="TheListView"
                   Grid.ColumnSpan="2"
                   Grid.Column="0"
-                  ItemsSource="{Binding MainItems}" 
-                  SelectedItem = "{Binding SelectedMainItem, Mode=TwoWay}"
+                  ItemsSource="{Binding Views}" 
+                  SelectedItem = "{Binding SelectedView, Mode=TwoWay}"
                   VerticalAlignment="Top" Margin="0,20,0,0">
-            
+
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Название"
@@ -44,7 +44,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content=" Открыть"
-                                        Command="{Binding DataContext.OpenMainItemCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                        Command="{Binding DataContext.OpenViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                         CommandParameter="{Binding}"
                                         Width="100"/>
                             </DataTemplate>
@@ -58,7 +58,5 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        
-
     </Grid>
 </Window>
