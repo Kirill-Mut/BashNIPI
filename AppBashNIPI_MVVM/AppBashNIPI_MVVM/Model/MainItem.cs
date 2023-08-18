@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace AppBashNIPIMVVM.Model
 {
-    public abstract class MainItem : INotifyPropertyChanged
+    public abstract class MainItem 
     {
         private int id;
         private string name;
@@ -16,7 +16,6 @@ namespace AppBashNIPIMVVM.Model
             set
             {
                 id = value;
-                OnPropertyChanged("Id");
             }
         }
         public string Name
@@ -25,7 +24,6 @@ namespace AppBashNIPIMVVM.Model
             set
             {
                 name = value == "" ? ".doc" : value;
-                OnPropertyChanged("Name");
             }
         }
         public string? Body
@@ -34,15 +32,7 @@ namespace AppBashNIPIMVVM.Model
             set
             {
                 body = value;
-                OnPropertyChanged("Value");
             }
-        }
-        
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

@@ -12,7 +12,6 @@ namespace AppBashNIPIMVVM.Model
             set
             {
                 status = value;
-                OnPropertyChanged("Status");
             }
         }
         public override string ClassName => "Задача";

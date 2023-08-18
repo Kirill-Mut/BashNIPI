@@ -11,7 +11,6 @@ namespace AppBashNIPIMVVM.Model
             set
             {
                 signature = value;
-                OnPropertyChanged("Signature");
             }
         }
         public override string ClassName => "Документ";
